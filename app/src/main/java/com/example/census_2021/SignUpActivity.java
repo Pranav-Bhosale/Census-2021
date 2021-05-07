@@ -1,5 +1,6 @@
 package com.example.census_2021;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,43 +20,33 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
-
-    EditText email, password;
+public class SignUpActivity extends AppCompatActivity {
+    EditText email, password,monNo,nameText;
     Button btn;
     TextView signin;
     FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    FirebaseDatabase rootnode;
+    DatabaseReference reference;
+    FirebaseUser muser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.editTextTextEmailAddress2);
-        password = findViewById(R.id.editTextTextPassword2);
-        signin = findViewById(R.id.textView2);
-        btn = findViewById(R.id.button2);
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-//                if (mFirebaseUser != null) {
-//                    Toast.makeText(MainActivity.this, "You are Logged in", Toast.LENGTH_SHORT).show();
-//                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
-//                    startActivity(i);
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Please Log in", Toast.LENGTH_SHORT).show();
-//                }
-
-            }
-        };
+        email = findViewById(R.id.editTextTextEmailAddress);
+        password = findViewById(R.id.editTextTextPassword);
+        nameText = findViewById(R.id.editTextTextName);
+        monNo=findViewById(R.id.editTextTextMobileNo);
+       // signin = findViewById(R.id.textView);
+        btn = findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String mail = email.getText().toString();
                 String pass = password.getText().toString();
+                String MobileNo=monNo.getText().toString();
+                String name=nameText.getText().toString();
                 if (mail.isEmpty()) {
                     email.setError("Please Enter an Email");
                     email.requestFocus();
@@ -68,35 +59,39 @@ public class MainActivity extends AppCompatActivity {
                     email.requestFocus();
                     password.requestFocus();
                 } else if (!(mail.isEmpty() && pass.isEmpty())) {
-                    mFirebaseAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Sign In Unsuccessful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
                             } else {
-                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                String mail = email.getText().toString();
+                                String pass = password.getText().toString();
+                                rootnode = FirebaseDatabase.getInstance();
+                                reference = rootnode.getReference("users");
+                                muser = mFirebaseAuth.getCurrentUser();
+                                String uid = muser.getUid();
+                                UserHelperClass newuser = new UserHelperClass(name,MobileNo);
+                                reference.child(uid).setValue(newuser);
+                                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             }
                         }
                     });
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
 //        signin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+//                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
 //                startActivity(intent);
 //            }
 //        });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
 }
+
+

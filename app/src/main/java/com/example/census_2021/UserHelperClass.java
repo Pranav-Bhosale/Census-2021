@@ -2,29 +2,29 @@ package com.example.census_2021;
 
 
 public class UserHelperClass {
-    String mail = " ", pass = " ";
+    String Name = "", Mobile_No = "";
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String mail, String pass) {
-        this.mail = mail;
-        this.pass = pass;
+    public UserHelperClass(String NameT, String MobileNo) {
+        this.Name = NameT;
+        this.Mobile_No = MobileNo;
 
     }
 
-    public String getMail() {
-        return mail;
+    public String getName() {
+        return Name;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public String getPass() {
-        return pass;
+    public String getMobile_No() {
+        return Mobile_No;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setMobile_No(String mobile_No) {
+        Mobile_No = mobile_No;
     }
 }
