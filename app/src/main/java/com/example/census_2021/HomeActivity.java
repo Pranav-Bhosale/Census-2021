@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btn,signUpBtn;
+    Button btn,signUpBtn,signUpadmin;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
@@ -20,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         btn = findViewById(R.id.button3);
         signUpBtn= findViewById(R.id.SignUpbtn);
+        signUpadmin=findViewById(R.id.SignUpbtnAdmin);
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,5 +36,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        signUpadmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SignUpAdmin.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
