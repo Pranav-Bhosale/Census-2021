@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText email, password;
+    TextInputLayout email, password;
     Button btn;
+    ProgressBar bar;
     TextView signin;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -38,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.editTextTextEmailAddress2);
-        password = findViewById(R.id.editTextTextPassword2);
-        signin = findViewById(R.id.textView2);
-        btn = findViewById(R.id.button2);
+        email = (TextInputLayout)findViewById(R.id.editTextTextEmailAddress2);
+        bar=(ProgressBar) findViewById(R.id.progressBar2);
+        password = (TextInputLayout)findViewById(R.id.editTextTextPassword2);
+//        signin = findViewById(R.id.textView2);
+        btn = (Button) findViewById(R.id.button2);
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
@@ -60,15 +65,19 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mail = email.getText().toString();
-                String pass = password.getText().toString();
+                bar.setVisibility(View.VISIBLE);
+                String mail = email.getEditText().getText().toString();
+                String pass = password.getEditText().getText().toString();
                 if (mail.isEmpty()) {
+                    bar.setVisibility(View.INVISIBLE);
                     email.setError("Please Enter an Email");
                     email.requestFocus();
                 } else if (pass.isEmpty()) {
+                    bar.setVisibility(View.INVISIBLE);
                     password.setError("Please Enter a Password");
                     password.requestFocus();
                 } else if (mail.isEmpty() && pass.isEmpty()) {
+                    bar.setVisibility(View.INVISIBLE);
                     email.setError("Please Enter an Email");
                     password.setError("Please Enter a Password");
                     email.requestFocus();
@@ -78,7 +87,13 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
+                                bar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(MainActivity.this, "Sign In Unsuccessful", Toast.LENGTH_SHORT).show();
+                                email.setError("Please Enter Correct Email");
+                                password.setError("Please Enter Correct Password");
+                                email.requestFocus();
+                                password.requestFocus();
+
                             } else {
                                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 String id=mFirebaseUser.getUid();
@@ -90,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                         UserHelperClass userdata=snapshot.getValue(UserHelperClass.class);
                                         mobileNo=userdata.Mobile_No;
 //                                        Toast.makeText(MainActivity.this,mobileNo, Toast.LENGTH_SHORT).show();
+                                        bar.setVisibility(View.INVISIBLE);
                                         Intent intent = new Intent(MainActivity.this, OtpActivity.class);
                                              intent.putExtra("mobileNo",mobileNo);
                                         startActivity(intent);
@@ -97,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
+                                        bar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(MainActivity.this,"Error in getting mobile no", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -108,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Error Occurred Contact App Dev", Toast.LENGTH_SHORT).show();
                 }
             }
         });
