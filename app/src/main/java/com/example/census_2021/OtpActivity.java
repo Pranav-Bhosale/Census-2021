@@ -47,7 +47,7 @@ public class OtpActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                otp.setError(null);
                 if(otp.getEditText().getText().toString().isEmpty())
                 {
                     otp.setError("Please Enter OTP");

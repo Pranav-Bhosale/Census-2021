@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                email.setError(null);
+                password.setError(null);
                 bar.setVisibility(View.VISIBLE);
                 String mail = email.getEditText().getText().toString();
                 String pass = password.getEditText().getText().toString();
