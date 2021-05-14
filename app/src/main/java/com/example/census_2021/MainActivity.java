@@ -47,21 +47,22 @@ public class MainActivity extends AppCompatActivity {
         password = (TextInputLayout)findViewById(R.id.editTextTextPassword2);
 //        signin = findViewById(R.id.textView2);
         btn = (Button) findViewById(R.id.button2);
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+//
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 //                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 //                if (mFirebaseUser != null) {
-//                    Toast.makeText(MainActivity.this, "You are Logged in", Toast.LENGTH_SHORT).show();
+//                    String id=mFirebaseUser.getUid();
 //                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
+//                    i.putExtra("uid",id);
 //                    startActivity(i);
 //                } else {
 //                    Toast.makeText(MainActivity.this, "Please Log in", Toast.LENGTH_SHORT).show();
 //                }
-
-            }
-        };
+//
+//            }
+//        };
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                         bar.setVisibility(View.INVISIBLE);
                                         Intent intent = new Intent(MainActivity.this, OtpActivity.class);
                                              intent.putExtra("mobileNo",mobileNo);
+                                        intent.putExtra("uid",id);
                                         startActivity(intent);
                                     }
 
@@ -139,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+//    }
 }

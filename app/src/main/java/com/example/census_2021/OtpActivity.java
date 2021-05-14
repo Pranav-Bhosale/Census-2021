@@ -29,47 +29,48 @@ public class OtpActivity extends AppCompatActivity {
     Button signInButton;
     String userphno;
     ProgressBar bar;
-    String optid;
+    String optid,  uID;
     private  FirebaseAuth mAuth;
-
+    boolean isSubmit=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
-        otp=(TextInputLayout)findViewById(R.id.otp);
-        signInButton=(Button)findViewById(R.id.SignInButton);
-        bar=findViewById(R.id.progressBar2);
-        userphno=getIntent().getStringExtra("mobileNo").toString();
+        otp = (TextInputLayout) findViewById(R.id.otp);
+        signInButton = (Button) findViewById(R.id.SignInButton);
+        bar = findViewById(R.id.progressBar2);
+        userphno = getIntent().getStringExtra("mobileNo").toString();
+        uID = getIntent().getStringExtra("uid").toString();
         mAuth = FirebaseAuth.getInstance();
         initiateotp();
 
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
+            signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                otp.setError(null);
-                if(otp.getEditText().getText().toString().isEmpty())
+                if(isSubmit)
                 {
+                otp.setError(null);
+                if (otp.getEditText().getText().toString().isEmpty()) {
                     otp.setError("Please Enter OTP");
                     otp.requestFocus();
 //                    Toast.makeText(getApplicationContext(), "Fields can not be empty..", Toast.LENGTH_SHORT).show();
-                }
-                else   if((otp.getEditText().getText().toString().length()!=6) ){
+                } else if ((otp.getEditText().getText().toString().length() != 6)) {
                     otp.setError("OTP Should Be 6 Digit");
                     otp.requestFocus();
 //                    Toast.makeText(getApplicationContext(), "Invalid Fields In OTP..", Toast.LENGTH_SHORT).show();
-                }
-                    else
-                {
+                } else {
                     bar.setVisibility(View.VISIBLE);
-                    PhoneAuthCredential credential=PhoneAuthProvider.getCredential(optid,otp.getEditText().getText().toString());
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(optid, otp.getEditText().getText().toString());
                     signInWithPhoneAuthCredential(credential);
                     bar.setVisibility(View.INVISIBLE);
                 }
 
-
+            }
             }
         });
+
+
     }
 
 
@@ -89,6 +90,7 @@ public class OtpActivity extends AppCompatActivity {
                                 bar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(OtpActivity.this, "OTP has been sent...", Toast.LENGTH_SHORT).show();
                                 optid=s;
+                                isSubmit=true;
                             }
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential)
@@ -113,7 +115,9 @@ public class OtpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             bar.setVisibility(View.INVISIBLE);
-                            startActivity(new Intent(OtpActivity.this,HomeActivity.class));
+                            Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                            intent.putExtra("uid",uID);
+                            startActivity(intent);
                         } else {
                             bar.setVisibility(View.INVISIBLE);
                             Toast.makeText(OtpActivity.this, "Error In Signing In ...", Toast.LENGTH_SHORT).show();
