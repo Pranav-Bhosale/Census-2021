@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        email = (TextInputLayout)findViewById(R.id.editTextTextEmailAddress2);
+        email = (TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
         bar=(ProgressBar) findViewById(R.id.progressBar2);
-        password = (TextInputLayout)findViewById(R.id.editTextTextPassword2);
+        password = (TextInputLayout)findViewById(R.id.editTextTextoption);
 //        signin = findViewById(R.id.textView2);
-        btn = (Button) findViewById(R.id.button2);
+        btn = (Button) findViewById(R.id.img2);
 //        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 //
 //            @Override

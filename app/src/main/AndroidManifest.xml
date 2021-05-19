@@ -10,20 +10,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Census2021">
         <activity
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:name=".Add_questions"/>
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".Add_survey"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SignUpAdmin"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".OtpActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+
+                    android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

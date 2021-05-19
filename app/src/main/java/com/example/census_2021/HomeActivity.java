@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
-    CardView logout,signUpBtn,signUpadmin;
+    CardView logout,signUpBtn,signUpadmin,addsurvey,editsurvey;
     String username,uid;
     TextView nameView;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -50,8 +50,18 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         logout =(CardView)findViewById(R.id.logout);
+        addsurvey=(CardView)findViewById(R.id.addsurvey);
+         editsurvey=(CardView)findViewById(R.id.editsurvey);
         signUpBtn= (CardView)findViewById(R.id.adduser);
         signUpadmin=(CardView)findViewById(R.id.addadmin);
+        addsurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, Add_survey.class);
+                intent.putExtra("uid",uid);
+                startActivity(intent);
+            }
+        });
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
