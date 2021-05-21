@@ -101,29 +101,44 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 String id=mFirebaseUser.getUid();
-                                rootnode = FirebaseDatabase.getInstance();
-                                reference = rootnode.getReference("users-admin").child(id);
-                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        UserHelperClass userdata=snapshot.getValue(UserHelperClass.class);
-                                        mobileNo=userdata.Mobile_No;
+                                if(mFirebaseUser.isEmailVerified()) {
+                                    rootnode = FirebaseDatabase.getInstance();
+                                    reference = rootnode.getReference("users-admin").child(id);
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            UserHelperClass userdata = snapshot.getValue(UserHelperClass.class);
+                                            mobileNo = userdata.Mobile_No;
 //                                        Toast.makeText(MainActivity.this,mobileNo, Toast.LENGTH_SHORT).show();
-                                        bar.setVisibility(View.INVISIBLE);
-                                        Intent intent = new Intent(MainActivity.this, OtpActivity.class);
-                                             intent.putExtra("mobileNo",mobileNo);
-                                        intent.putExtra("uid",id);
-                                        startActivity(intent);
-                                        finish();
-                                    }
+                                            bar.setVisibility(View.INVISIBLE);
+                                            Intent intent = new Intent(MainActivity.this, OtpActivity.class);
+                                            intent.putExtra("mobileNo", mobileNo);
+                                            intent.putExtra("uid", id);
+                                            startActivity(intent);
+                                            finish();
+                                        }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        bar.setVisibility(View.INVISIBLE);
-                                        Toast.makeText(MainActivity.this,"Error in getting mobile no", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            bar.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(MainActivity.this, "Error in getting mobile no", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    mFirebaseUser.sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        bar.setVisibility(View.INVISIBLE);
+                                                        Toast.makeText(MainActivity.this, "Verify Email to Sign in..", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(MainActivity.this, "Verification Email Sent to registered Email..", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                }
 
                             }
                         }

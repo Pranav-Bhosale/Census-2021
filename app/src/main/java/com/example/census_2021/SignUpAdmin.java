@@ -119,6 +119,16 @@ public class SignUpAdmin extends AppCompatActivity {
                             rootnode = FirebaseDatabase.getInstance();
                             reference = rootnode.getReference("users-admin");
                             muser = mFirebaseAuth.getCurrentUser();
+                            muser.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(SignUpAdmin.this, "Verification Email Sent..", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
                             String uid = muser.getUid();
                             MobileNo="+91"+MobileNo;
                             UserHelperClass newuser = new UserHelperClass(name, MobileNo);

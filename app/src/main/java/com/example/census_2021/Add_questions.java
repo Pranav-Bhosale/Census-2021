@@ -1,6 +1,8 @@
 package com.example.census_2021;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -148,15 +150,41 @@ public class Add_questions extends AppCompatActivity {
                             {
                                 arrList.add(arr[j]);
                             }
-                            rootnode = FirebaseDatabase.getInstance();
-                            reference = rootnode.getReference("surveys");
-                            reference.child(survey_name).child(queSts).setValue(arrList);
-                            Toast.makeText(Add_questions.this, "Question Added Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Add_questions.this, HomeActivity.class);
-                            intent.putExtra("survey_name",survey_name);
-                            intent.putExtra("uid",uID);
-                            startActivity(intent);
-                            finish();
+                            AlertDialog alertDialog = new AlertDialog.Builder(Add_questions.this).create();
+                            alertDialog.setTitle("Alert");
+                            alertDialog.setCancelable(true);
+                            alertDialog.setMessage("Do you want Submit Survey? click yes to confirm ");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            rootnode = FirebaseDatabase.getInstance();
+                                            reference = rootnode.getReference("surveys");
+                                            reference.child(survey_name).child(queSts).setValue(arrList);
+                                            Toast.makeText(Add_questions.this, "Survey Created successfully..", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Add_questions.this, HomeActivity.class);
+                                            intent.putExtra("uid",uID);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+//                            rootnode = FirebaseDatabase.getInstance();
+//                            reference = rootnode.getReference("surveys");
+//                            reference.child(survey_name).child(queSts).setValue(arrList);
+//                            Toast.makeText(Add_questions.this, "Question Added Successfully", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(Add_questions.this, HomeActivity.class);
+//                            intent.putExtra("survey_name",survey_name);
+//                            intent.putExtra("uid",uID);
+//                            startActivity(intent);
+//                            finish();
 
                         }
                     }
@@ -173,7 +201,7 @@ public class Add_questions extends AppCompatActivity {
                 String queSts=questsLayout.getEditText().getText().toString();
                 questsLayout.setError(null);
                 int j=0;
-                String arr[]=new String[i-1];
+                String[] arr =new String[i-1];
                 for(j=0;j<i-1;j++)
                 {
                     EditText text=(EditText)findViewById((j+1));
@@ -213,15 +241,35 @@ public class Add_questions extends AppCompatActivity {
                             {
                                arrList.add(arr[j]);
                             }
-                            rootnode = FirebaseDatabase.getInstance();
-                            reference = rootnode.getReference("surveys");
-                            reference.child(survey_name).child(queSts).setValue(arrList);
-                            Toast.makeText(Add_questions.this, "Question Added Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Add_questions.this, Add_questions.class);
-                            intent.putExtra("survey_name",survey_name);
-                            intent.putExtra("uid",uID);
-                            startActivity(intent);
-                            finish();
+                            AlertDialog alertDialog = new AlertDialog.Builder(Add_questions.this).create();
+                            alertDialog.setTitle("Alert");
+                            alertDialog.setCancelable(true);
+                            alertDialog.setMessage("You can not change Question statement and options again..Do you want to add new Question? click yes to confirm ");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            rootnode = FirebaseDatabase.getInstance();
+                                            reference = rootnode.getReference("surveys");
+                                            reference.child(survey_name).child(queSts).setValue(arrList);
+                                            Toast.makeText(Add_questions.this, "Question Added Successfully", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Add_questions.this, Add_questions.class);
+                                            intent.putExtra("survey_name",survey_name);
+                                            intent.putExtra("uid",uID);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+
+
 
                         }
                     }
