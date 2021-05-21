@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp"
     android:background="@drawable/background"
     tools:context=".OtpActivity">
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/otp1"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="Enter Otp"-->
-    <!--        android:inputType="numberPassword"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.432"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"/>-->
+<!--    <EditText-->
+<!--        android:id="@+id/otp1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Enter Otp"-->
+<!--        android:inputType="numberPassword"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.432"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
     <TextView
         android:id="@+id/otptext"
@@ -45,30 +44,29 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
+        android:paddingTop="25dp"
         android:text="OTP has been sent to your registered mobile number"
         android:textColor="#FF7F2A8E"
         android:textColorHint="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintTop_toBottomOf="@+id/otptext" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="334dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648">
+        app:layout_constraintVertical_bias="0.765">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/otp"
@@ -137,7 +135,6 @@
 
     </LinearLayout>
 
-
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
@@ -163,14 +160,14 @@
         app:srcCompat="@drawable/logo" />
 
     <!--    <Button-->
-    <!--        android:id="@+id/SignInButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Sign In"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.805"/>-->
+<!--        android:id="@+id/SignInButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Sign In"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.805"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
