@@ -2,12 +2,14 @@ package com.example.census_2021;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase rootnode;
     DatabaseReference reference;
     String mobileNo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         password = (TextInputLayout)findViewById(R.id.editTextTextoption);
 //        signin = findViewById(R.id.textView2);
         btn = (Button) findViewById(R.id.img2);
+
 //        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 //
 //            @Override
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        };
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                                              intent.putExtra("mobileNo",mobileNo);
                                         intent.putExtra("uid",id);
                                         startActivity(intent);
+                                        finish();
                                     }
 
                                     @Override
@@ -139,9 +143,11 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
 //    @Override
 //    protected void onStart() {
 //        super.onStart();
 //        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 //    }
+
 }

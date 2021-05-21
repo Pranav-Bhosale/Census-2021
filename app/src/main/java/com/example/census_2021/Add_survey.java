@@ -42,6 +42,7 @@ public class Add_survey extends AppCompatActivity {
                     intent.putExtra("survey_name",survey_name);
                     intent.putExtra("uid",uID);
                     startActivity(intent);
+                    finish();
                 }
             }
 

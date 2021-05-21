@@ -26,6 +26,7 @@ public class SignUpAdmin extends AppCompatActivity {
     ProgressBar bar;
     String mail ,pass,MobileNo,name,passRetype;
     Button btn;
+    String uId;
     TextView signin;
     FirebaseAuth mFirebaseAuth;
     FirebaseDatabase rootnode;
@@ -35,6 +36,7 @@ public class SignUpAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_admin);
+        uId=getIntent().getStringExtra("uid").toString();
         mFirebaseAuth = FirebaseAuth.getInstance();
         email = (TextInputLayout)findViewById(R.id.editTextTextEmailAddress);
         password =(TextInputLayout)findViewById(R.id.editTextTextPassword);
@@ -124,7 +126,9 @@ public class SignUpAdmin extends AppCompatActivity {
                             Toast.makeText(SignUpAdmin.this, "Admin Registration Successful", Toast.LENGTH_SHORT).show();
                             bar.setVisibility(View.INVISIBLE);
                             Intent intent = new Intent(SignUpAdmin.this, HomeActivity.class);
+                            intent.putExtra("uid",uId);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 });

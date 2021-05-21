@@ -28,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     String mail ,pass,MobileNo,name,passRetype;
     Button btn;
     TextView signin;
+    String uID;
     FirebaseAuth mFirebaseAuth;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
@@ -36,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        uID=getIntent().getStringExtra("uid").toString();
         mFirebaseAuth = FirebaseAuth.getInstance();
         email = (TextInputLayout)findViewById(R.id.editTextTextEmailAddress);
         password =(TextInputLayout)findViewById(R.id.editTextTextPassword);
@@ -130,7 +132,9 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
                             bar.setVisibility(View.INVISIBLE);
                             Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                            intent.putExtra("uid",uID);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 });

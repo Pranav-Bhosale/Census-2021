@@ -156,6 +156,7 @@ public class Add_questions extends AppCompatActivity {
                             intent.putExtra("survey_name",survey_name);
                             intent.putExtra("uid",uID);
                             startActivity(intent);
+                            finish();
 
                         }
                     }
@@ -220,6 +221,7 @@ public class Add_questions extends AppCompatActivity {
                             intent.putExtra("survey_name",survey_name);
                             intent.putExtra("uid",uID);
                             startActivity(intent);
+                            finish();
 
                         }
                     }

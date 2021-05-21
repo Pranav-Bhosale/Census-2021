@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OtpActivity extends AppCompatActivity {
     TextInputLayout otp;
-    Button signInButton;
+    Button signInButton,resendOtp,loginpage;
     String userphno;
     ProgressBar bar;
     String optid,  uID;
@@ -38,12 +38,32 @@ public class OtpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
         otp = (TextInputLayout) findViewById(R.id.otp);
         signInButton = (Button) findViewById(R.id.SignInButton);
+        resendOtp=(Button) findViewById(R.id.resendotp);
+        loginpage=(Button) findViewById(R.id.backtologin);
         bar = findViewById(R.id.progressBar2);
         userphno = getIntent().getStringExtra("mobileNo").toString();
         uID = getIntent().getStringExtra("uid").toString();
         mAuth = FirebaseAuth.getInstance();
         initiateotp();
 
+        resendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                intent.putExtra("mobileNo",userphno);
+                intent.putExtra("uid",uID);
+                startActivity(intent);
+                finish();
+            }
+        });
+        loginpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OtpActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
             signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +89,6 @@ public class OtpActivity extends AppCompatActivity {
             }
             }
         });
-
-
     }
 
 
@@ -103,6 +121,12 @@ public class OtpActivity extends AppCompatActivity {
                             {
                                 bar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(OtpActivity.this, "Error Signing In with OTP...", Toast.LENGTH_SHORT).show();
+                                resendOtp.setClickable(true);
+                                resendOtp.setEnabled(true);
+                                resendOtp.setVisibility(View.VISIBLE);
+                                loginpage.setClickable(true);
+                                loginpage.setEnabled(true);
+                                loginpage.setVisibility(View.VISIBLE);
                             }
                         })          // OnVerificationStateChangedCallbacks
                         .build();
@@ -118,6 +142,7 @@ public class OtpActivity extends AppCompatActivity {
                             Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
                             intent.putExtra("uid",uID);
                             startActivity(intent);
+                            finish();
                         } else {
                             bar.setVisibility(View.INVISIBLE);
                             Toast.makeText(OtpActivity.this, "Error In Signing In ...", Toast.LENGTH_SHORT).show();

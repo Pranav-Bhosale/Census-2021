@@ -110,7 +110,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/editsurvey"
+                    android:id="@+id/deletesurvey"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
@@ -132,7 +132,7 @@
                             android:layout_width="91dp"
                             android:layout_height="51dp"
                             android:layout_marginTop="4dp"
-                            app:srcCompat="@android:drawable/ic_menu_edit" />
+                            app:srcCompat="@android:drawable/ic_menu_delete" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                             android:layout_marginBottom="4dp"
                             android:fontFamily="sans-serif"
                             android:gravity="center|center_horizontal"
-                            android:text="Edit Survey"
+                            android:text="Delete Survey"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
 

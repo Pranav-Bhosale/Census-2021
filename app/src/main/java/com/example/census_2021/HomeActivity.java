@@ -25,8 +25,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
-    CardView logout,signUpBtn,signUpadmin,addsurvey,editsurvey;
-    String username,uid;
+    CardView logout,signUpBtn,signUpadmin,addsurvey,deleteSurvey;
+    String uid;
     TextView nameView;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
@@ -51,9 +51,18 @@ public class HomeActivity extends AppCompatActivity {
         });
         logout =(CardView)findViewById(R.id.logout);
         addsurvey=(CardView)findViewById(R.id.addsurvey);
-         editsurvey=(CardView)findViewById(R.id.editsurvey);
         signUpBtn= (CardView)findViewById(R.id.adduser);
         signUpadmin=(CardView)findViewById(R.id.addadmin);
+        deleteSurvey=(CardView)findViewById(R.id.deletesurvey);
+
+        deleteSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, deleteSurvey.class);
+                intent.putExtra("uid",uid);
+                startActivity(intent);
+            }
+        });
         addsurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+                intent.putExtra("uid",uid);
                 startActivity(intent);
             }
         });
@@ -75,12 +85,14 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         signUpadmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, SignUpAdmin.class);
+                intent.putExtra("uid",uid);
                 startActivity(intent);
             }
         });
