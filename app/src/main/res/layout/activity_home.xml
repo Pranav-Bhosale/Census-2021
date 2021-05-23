@@ -304,7 +304,7 @@
                             android:layout_width="91dp"
                             android:layout_height="51dp"
                             android:layout_marginTop="4dp"
-                            app:srcCompat="@android:drawable/ic_menu_delete" />
+                            app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -312,7 +312,7 @@
                             android:layout_marginBottom="4dp"
                             android:fontFamily="sans-serif"
                             android:gravity="center|center_horizontal"
-                            android:text="Delete User"
+                            android:text="Manage Users"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
 
@@ -390,7 +390,7 @@
                             android:layout_width="91dp"
                             android:layout_height="51dp"
                             android:layout_marginTop="4dp"
-                            app:srcCompat="@android:drawable/ic_menu_delete" />
+                            app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -398,7 +398,7 @@
                             android:layout_marginBottom="4dp"
                             android:fontFamily="sans-serif"
                             android:gravity="center|center_horizontal"
-                            android:text="Delete Admin"
+                            android:text="Manage Admins"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp" />
 

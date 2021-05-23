@@ -86,7 +86,6 @@ public class deleteSurvey extends AppCompatActivity {
 
                                 }
                             });
-
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

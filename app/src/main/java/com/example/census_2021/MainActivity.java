@@ -1,5 +1,6 @@
 package com.example.census_2021;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -111,13 +113,30 @@ public class MainActivity extends AppCompatActivity {
                                             mobileNo = userdata.Mobile_No;
 //                                        Toast.makeText(MainActivity.this,mobileNo, Toast.LENGTH_SHORT).show();
                                             bar.setVisibility(View.INVISIBLE);
-                                            Intent intent = new Intent(MainActivity.this, OtpActivity.class);
-                                            intent.putExtra("mobileNo", mobileNo);
-                                            intent.putExtra("uid", id);
-                                            startActivity(intent);
-                                            finish();
-                                        }
+                                            if(userdata.state.equals("disabled"))
+                                            {
+                                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                                alertDialog.setTitle("Alert");
+                                                alertDialog.setCancelable(true);
+                                                alertDialog.setMessage("Your Account is DISABLED by ADMIN..Contact Admin for Details");
+                                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Exit",
+                                                        new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                                finish();
+                                                            }
+                                                        });
+                                                alertDialog.show();
 
+                                            }
+                                            else {
+                                                Intent intent = new Intent(MainActivity.this, OtpActivity.class);
+                                                intent.putExtra("mobileNo", mobileNo);
+                                                intent.putExtra("uid", id);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
                                             bar.setVisibility(View.INVISIBLE);
