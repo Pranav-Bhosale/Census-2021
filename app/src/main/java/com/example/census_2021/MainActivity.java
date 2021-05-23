@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                             {
                                                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                                                 alertDialog.setTitle("Alert");
-                                                alertDialog.setCancelable(true);
+                                                alertDialog.setCancelable(false);
                                                 alertDialog.setMessage("Your Account is DISABLED by ADMIN..Contact Admin for Details");
                                                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Exit",
                                                         new DialogInterface.OnClickListener() {

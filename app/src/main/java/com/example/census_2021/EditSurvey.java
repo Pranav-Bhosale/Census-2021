@@ -62,7 +62,6 @@ public class EditSurvey extends AppCompatActivity {
                                     finish();
             }
         });
-
     }
     private void CollectQuestions(Map<String, Object> questions) {
         for (Map.Entry<String, Object> entry : questions.entrySet()) {
