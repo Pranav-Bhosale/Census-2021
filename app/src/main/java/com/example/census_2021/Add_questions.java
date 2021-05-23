@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class Add_questions extends AppCompatActivity {
   FirebaseAuth mFirebaseAuth;
   FirebaseDatabase rootnode;
   DatabaseReference reference;
+  TextView namedisplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,9 @@ public class Add_questions extends AppCompatActivity {
         addOptionRadio=(LinearLayout)findViewById(R.id.button1);
         removeOption=(LinearLayout)findViewById(R.id.button5);
         nextQue=(Button)findViewById(R.id.button3);
+        namedisplay=(TextView)findViewById(R.id.SurveyNameText);
+        namedisplay.setText(survey_name);
+        namedisplay.setGravity(Gravity.CENTER);
         submitSurvey=(Button)findViewById(R.id.button4);
         addOptionTextBox=(LinearLayout)findViewById(R.id.button2);
         addOptionRadio.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +62,7 @@ public class Add_questions extends AppCompatActivity {
                 textView.setTextColor(Color.parseColor("#FF2E096A"));
                 EditText edittext=new EditText(getApplicationContext());
                 edittext.setHint("Enter Option"+i);
+                edittext.requestFocus();
                 edittext.setId(i);
                 textView.setId((i*1000));
                 i++;
@@ -92,6 +98,7 @@ public class Add_questions extends AppCompatActivity {
                 textView.setTextColor(Color.parseColor("#FF2E096A"));
                 EditText edittext=new EditText(getApplicationContext());
                 edittext.setText("InputFromUser");
+                edittext.requestFocus();
                 edittext.setFocusable(false);
                 edittext.setEnabled(false);
                 edittext.setClickable(false);
@@ -244,7 +251,7 @@ public class Add_questions extends AppCompatActivity {
                             AlertDialog alertDialog = new AlertDialog.Builder(Add_questions.this).create();
                             alertDialog.setTitle("Alert");
                             alertDialog.setCancelable(true);
-                            alertDialog.setMessage("You can not change Question statement and options again..Do you want to add new Question? click yes to confirm ");
+                            alertDialog.setMessage("Do you want to add new Question? click yes to confirm ");
                             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {

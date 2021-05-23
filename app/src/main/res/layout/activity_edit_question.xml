@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Add_questions">
+    tools:context=".EditQuestion">
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -26,7 +27,7 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center|center_horizontal"
         android:paddingBottom="20dp"
-        android:text="Add New Question"
+        android:text="Edit Question"
         android:textColor="#FF2E096A"
         android:textColorHint="#FFFFFF"
         android:textSize="28sp"
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
-                android:text="Enter Question"
+                android:text=" Question Statement"
                 android:textColor="#FF7F2A8E"
                 android:textColorHint="#FFFFFF"
                 android:textSize="18sp"
@@ -228,7 +229,7 @@
                     android:layout_weight="1"
                     android:background="#FF871DB6"
                     android:padding="10dp"
-                    android:text="Add Next Que"
+                    android:text="Delete Question"
                     android:textColor="#FFFFFF" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -239,11 +240,10 @@
                     android:layout_weight="1"
                     android:background="#FF871DB6"
                     android:padding="10dp"
-                    android:text="Create Survey"
+                    android:text="Update Question"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

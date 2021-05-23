@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +35,7 @@ public class OtpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         otp = (TextInputLayout) findViewById(R.id.otp);
-        signInButton = (Button) findViewById(R.id.SignInButton);
+        signInButton = (Button) findViewById(R.id.addQue);
         resendOtp=(Button) findViewById(R.id.resendotp);
         loginpage=(Button) findViewById(R.id.backtologin);
         bar = findViewById(R.id.progressBar2);
