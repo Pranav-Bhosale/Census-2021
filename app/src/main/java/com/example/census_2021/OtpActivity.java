@@ -27,7 +27,7 @@ public class OtpActivity extends AppCompatActivity {
     Button signInButton,resendOtp,loginpage;
     String userphno;
     ProgressBar bar;
-    String optid,  uID;
+    String optid,  uID,mail,pass;
     private  FirebaseAuth mAuth;
     boolean isSubmit=false;
     @Override
@@ -41,15 +41,19 @@ public class OtpActivity extends AppCompatActivity {
         bar = findViewById(R.id.progressBar2);
         userphno = getIntent().getStringExtra("mobileNo").toString();
         uID = getIntent().getStringExtra("uid").toString();
+        mail = getIntent().getStringExtra("mail").toString();//newww
+        pass = getIntent().getStringExtra("pass").toString();//newww
         mAuth = FirebaseAuth.getInstance();
         initiateotp();
 
         resendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                Intent intent = new Intent(OtpActivity.this, OtpActivity.class);
                 intent.putExtra("mobileNo",userphno);
                 intent.putExtra("uid",uID);
+                intent.putExtra("mail", mail);  //newww
+                intent.putExtra("pass", pass);//newww
                 startActivity(intent);
                 finish();
             }
@@ -136,12 +140,26 @@ public class OtpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            bar.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
-                            intent.putExtra("uid",uID);
-                            startActivity(intent);
-                            finish();
-                        } else {
+                            mAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(OtpActivity.this, new OnCompleteListener<AuthResult>() {//newww
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {//newww
+                                    if (!task.isSuccessful())//newww
+                                    {
+                                        bar.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(OtpActivity.this, "Error In Signing In ...", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {//newww
+                                        bar.setVisibility(View.INVISIBLE);
+                                        Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                                        intent.putExtra("uid",uID);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+
+                        }
+                        else {
                             bar.setVisibility(View.INVISIBLE);
                             Toast.makeText(OtpActivity.this, "Error In Signing In ...", Toast.LENGTH_SHORT).show();
                         }

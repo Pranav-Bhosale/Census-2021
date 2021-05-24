@@ -9,11 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Census2021">
-        <activity android:name=".DeleteAdmin"></activity>
-        <activity android:name=".DeleteUser" />
-        <activity android:name=".EditQuestion" />
-        <activity android:name=".SelectSurvey" />
-        <activity android:name=".EditSurvey" />
+        <activity android:name=".UserSettings"></activity>
+        <activity
+            android:name=".DeleteAdmin"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DeleteUser"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditQuestion"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SelectSurvey"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditSurvey"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".deleteSurvey"
             android:screenOrientation="portrait"

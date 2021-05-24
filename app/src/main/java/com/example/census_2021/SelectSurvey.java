@@ -30,7 +30,6 @@ public class SelectSurvey extends AppCompatActivity {
     ArrayList<String> SurveyNames = new ArrayList<>();
     LinearLayout surveyListLayout;
     String uID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -112,6 +112,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#FF871DB6"
+        android:padding="10dp"
+        android:text="Forgot PAssword?"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <!--    <EditText-->
 <!--    android:id="@+id/email"-->

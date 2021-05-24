@@ -30,25 +30,25 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     TextInputLayout email, password;
-    Button btn;
+    Button btn,forgetPass;
     ProgressBar bar;
-    TextView signin;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
-    String mobileNo;
+    String mobileNo,mail,pass;
+    Boolean b=true;//newww
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        forgetPass=(Button)findViewById(R.id.forgot);//newww
         mFirebaseAuth = FirebaseAuth.getInstance();
         email = (TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
         bar=(ProgressBar) findViewById(R.id.progressBar2);
         password = (TextInputLayout)findViewById(R.id.editTextTextoption);
 //        signin = findViewById(R.id.textView2);
         btn = (Button) findViewById(R.id.img2);
-
 //        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 //
 //            @Override
@@ -66,28 +66,90 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        };
 
+        forgetPass.setOnClickListener(new View.OnClickListener() {//newww
+            @Override
+            public void onClick(View v) {//newww
+                email.setError(null);
+                password.setError(null);
+                if (b) {
+                    mail = email.getEditText().getText().toString();
+                    if (mail.isEmpty()) {
+                        bar.setVisibility(View.INVISIBLE);
+                        email.setError("Please Enter an Email");
+                        b=true;//newww
+                        email.requestFocus();
+                    }
+                    else {//newww
+                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();//newww
+                        alertDialog.setTitle("Alert");//newww
+                        alertDialog.setCancelable(false);//newww
+                        alertDialog.setMessage("Password reset link will be sent to entered Email..You might not receive reset link if Email is Not a Registered Email\n\nclick Yes to confirm");//newww
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",//newww
+                                new DialogInterface.OnClickListener() {//newww
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                                        auth.sendPasswordResetEmail(mail)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(MainActivity.this, "Password Reset Email has been sent to your Email", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                        else {
+                                                            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();//newww
+                                                            alertDialog.setTitle("Alert");//newww
+                                                            alertDialog.setCancelable(false);//newww
+                                                            alertDialog.setMessage("This Email Is Not a Registered Email");//newww
+                                                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok",//newww
+                                                                    new DialogInterface.OnClickListener() {//newww
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            dialog.dismiss();
+                                                                        }
+                                                                    });
+                                                        }
+                                                    }
+                                                });
+
+                                    }
+                                });
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",//newww
+                                new DialogInterface.OnClickListener() {//newww
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                }
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                b=false;//newww
                 email.setError(null);
                 password.setError(null);
                 bar.setVisibility(View.VISIBLE);
-                String mail = email.getEditText().getText().toString();
-                String pass = password.getEditText().getText().toString();
+                 mail = email.getEditText().getText().toString();
+                 pass = password.getEditText().getText().toString();
                 if (mail.isEmpty()) {
                     bar.setVisibility(View.INVISIBLE);
                     email.setError("Please Enter an Email");
+                    b=true;//newww
                     email.requestFocus();
                 } else if (pass.isEmpty()) {
                     bar.setVisibility(View.INVISIBLE);
                     password.setError("Please Enter a Password");
                     password.requestFocus();
+                    b=true;//newww
                 } else if (mail.isEmpty() && pass.isEmpty()) {
                     bar.setVisibility(View.INVISIBLE);
                     email.setError("Please Enter an Email");
                     password.setError("Please Enter a Password");
                     email.requestFocus();
                     password.requestFocus();
+                    b=true;//newww
                 } else if (!(mail.isEmpty() && pass.isEmpty())) {
                     mFirebaseAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -99,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                 password.setError("Please Enter Correct Password");
                                 email.requestFocus();
                                 password.requestFocus();
+                                b=true;//newww
 
                             } else {
                                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -133,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(MainActivity.this, OtpActivity.class);
                                                 intent.putExtra("mobileNo", mobileNo);
                                                 intent.putExtra("uid", id);
+                                                intent.putExtra("mail", mail);//newww
+                                                intent.putExtra("pass", pass);//newww
                                                 startActivity(intent);
                                                 finish();
                                             }
@@ -140,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
                                             bar.setVisibility(View.INVISIBLE);
+                                            b=true;//newww
                                             Toast.makeText(MainActivity.this, "Error in getting mobile no", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -169,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 //        signin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
