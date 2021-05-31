@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                                 String id=mFirebaseUser.getUid();
                                 if(mFirebaseUser.isEmailVerified()) {
                                     rootnode = FirebaseDatabase.getInstance();
-                                    reference = rootnode.getReference("users-admin").child(id);
+                                    reference = rootnode.getReference("users").child(id);
                                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -191,6 +191,21 @@ public class MainActivity extends AppCompatActivity {
                                                         });
                                                 alertDialog.show();
 
+                                            }
+                                            else if(!userdata.post.equals("admin"))
+                                            {
+                                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                                alertDialog.setTitle("Alert");
+                                                alertDialog.setCancelable(false);
+                                                alertDialog.setMessage("Your Account is not registered as ADMIN...Contact Admin for Details");
+                                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Exit",
+                                                        new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                                finish();
+                                                            }
+                                                        });
+                                                alertDialog.show();
                                             }
                                             else {
                                                 Intent intent = new Intent(MainActivity.this, OtpActivity.class);

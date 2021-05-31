@@ -2,15 +2,21 @@ package com.example.census_2021;
 
 
 public class UserHelperClass {
-    String Name = "", Mobile_No = "",state="enabled",entryNo="0";
+    String Name = "", Mobile_No = "",state="enabled" ,post="";
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String NameT, String MobileNo) {
-        this.Name = NameT;
-        this.Mobile_No = MobileNo;
+    public UserHelperClass(String name, String mobile_No ,String post) {
+        Name = name;
+        Mobile_No = mobile_No;
+        this.post = post;
+    }
+    public String getPost() {
+        return post;
+    }
 
-
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public String getState() {
@@ -21,13 +27,6 @@ public class UserHelperClass {
         this.state = state;
     }
 
-    public String getEntryNo() {
-        return entryNo;
-    }
-
-    public void setEntryNo(String entryNo) {
-        this.entryNo = entryNo;
-    }
 
     public String getName() {
         return Name;

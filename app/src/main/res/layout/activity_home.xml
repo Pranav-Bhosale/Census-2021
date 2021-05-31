@@ -72,7 +72,7 @@
                 android:paddingBottom="10dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/addsurvey"
+                    android:id="@+id/abledisable"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
@@ -110,7 +110,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/deletesurvey"
+                    android:id="@+id/changepost"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"

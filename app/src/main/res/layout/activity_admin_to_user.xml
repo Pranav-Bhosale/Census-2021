@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".DeleteAdmin">
+    tools:context=".AdminToUser">
 
     <ImageView
         android:id="@+id/imageView"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:text="Enable/Disable Admins"
+        android:text="Change Admin To User"
         android:textColor="#FF2E096A"
         android:textColorHint="#FFFFFF"
         android:textSize="28sp"
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

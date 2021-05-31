@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".DeleteAdmin">
+    tools:context=".UserToAdmin">
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:text="Enable/Disable Admins"
+        android:text="Change Users To Admin"
         android:textColor="#FF2E096A"
         android:textColorHint="#FFFFFF"
         android:textSize="28sp"

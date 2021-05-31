@@ -127,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
                             muser = mFirebaseAuth.getCurrentUser();
                             String uid = muser.getUid();
                             MobileNo="+91"+MobileNo;
-                            UserHelperClass newuser = new UserHelperClass(name, MobileNo);
+                            UserHelperClass newuser = new UserHelperClass(name, MobileNo,"user");
                             reference.child(uid).setValue(newuser);
                             Toast.makeText(SignUpActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
                             bar.setVisibility(View.INVISIBLE);

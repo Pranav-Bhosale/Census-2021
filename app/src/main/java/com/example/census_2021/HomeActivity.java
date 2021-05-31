@@ -4,16 +4,14 @@ package com.example.census_2021;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +23,9 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
-    CardView logout,signUpBtn,signUpadmin,addsurvey,deleteSurvey,editSurvey,deleteUser,deleteAdmin,settings;
+    Task<Void> ref1;
+    DatabaseReference ref2;
+    CardView logout,signUpBtn,signUpadmin,addsurvey,deleteSurvey,editSurvey,deleteUser,deleteAdmin,settings,changeData;
     String uid;
     TextView nameView;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         nameView=(TextView)findViewById(R.id.textView2);
         uid=getIntent().getStringExtra("uid").toString();
         rootnode = FirebaseDatabase.getInstance();
-        reference = rootnode.getReference("users-admin").child(uid);
+        reference = rootnode.getReference("users").child(uid);
         nameView.setText("UserName");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -50,18 +50,24 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         logout =(CardView)findViewById(R.id.logout);
-        addsurvey=(CardView)findViewById(R.id.addsurvey);
+        addsurvey=(CardView)findViewById(R.id.abledisable);
         signUpBtn= (CardView)findViewById(R.id.adduser);
         signUpadmin=(CardView)findViewById(R.id.addadmin);
-        deleteSurvey=(CardView)findViewById(R.id.deletesurvey);
+        deleteSurvey=(CardView)findViewById(R.id.changepost);
         editSurvey=(CardView)findViewById(R.id.editSurvey);
         deleteUser=(CardView)findViewById(R.id.deleteuser);
         deleteAdmin=(CardView)findViewById(R.id.deleteadmin);
         settings=(CardView)findViewById(R.id.settings);
+        changeData=(CardView)findViewById(R.id.edituser);
+        changeData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         deleteAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, DeleteAdmin.class);
+                Intent intent = new Intent(HomeActivity.this, manageAdmin.class);
                 intent.putExtra("uid",uid);
                 startActivity(intent);
             }
@@ -85,7 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         deleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, DeleteUser.class);
+                Intent intent = new Intent(HomeActivity.this, manageUser.class);
                 intent.putExtra("uid",uid);
                 startActivity(intent);
             }
@@ -131,6 +137,5 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

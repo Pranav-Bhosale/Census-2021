@@ -33,7 +33,7 @@ public class DeleteAdmin extends AppCompatActivity {
         uID = getIntent().getStringExtra("uid").toString();
         surveyListLayout = (LinearLayout) findViewById(R.id.xyz);
         rootnode = FirebaseDatabase.getInstance();
-        reference = rootnode.getReference("users-admin");
+        reference = rootnode.getReference("users");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -55,131 +55,145 @@ public class DeleteAdmin extends AppCompatActivity {
     }
 
     private void addbutonuser(String useruidTemp, String name) {
-        String state;
-        if(!uID.equals(useruidTemp))
-        {
-            rootnode.getReference("users-admin").child(useruidTemp).child("state").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String state = snapshot.getValue(String.class);
-                    if (state.equals("enabled")) {
-                        Button b = new Button(getApplicationContext());
-                        b.setText(name + "  (Enabled)");
-                        b.setHint(useruidTemp);
-                        b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
-                        b.setTextColor(Color.parseColor("#FFFFFF"));
-                        b.setBackgroundColor(Color.parseColor("#FF871DB6"));
-                        b.setGravity(Gravity.CENTER_HORIZONTAL);
-                        b.setPadding(5, 50, 5, 50);
-                        b.setOnClickListener(new View.OnClickListener() {
+        rootnode.getReference("users").child(useruidTemp).child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot abc) {
+                String post=abc.getValue(String.class);
+                if(post.equals("admin"))
+                {
+                    if(!uID.equals(useruidTemp))
+                    {
+                        rootnode.getReference("users").child(useruidTemp).child("state").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onClick(View v) {
-                                AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
-                                alertDialog.setTitle("Alert");
-                                alertDialog.setCancelable(true);
-                                alertDialog.setMessage("Do you want to Disable  Admin?\n" + name);
-                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                refdelete = rootnode.getReference("users-admin").child(useruidTemp).child("state");
-                                                refdelete.setValue("disabled");
-                                                Toast.makeText(DeleteAdmin.this, "Admin " + name + " Disabled Successfully..", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(DeleteAdmin.this, DeleteAdmin.class);
-                                                intent.putExtra("uid", uID);
-                                                dialog.dismiss();
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        });
-                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                alertDialog.show();
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String state = snapshot.getValue(String.class);
+                                if (state.equals("enabled")) {
+                                    Button b = new Button(getApplicationContext());
+                                    b.setText(name + "  (Enabled)");
+                                    b.setHint(useruidTemp);
+                                    b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
+                                    b.setTextColor(Color.parseColor("#FFFFFF"));
+                                    b.setBackgroundColor(Color.parseColor("#FF871DB6"));
+                                    b.setGravity(Gravity.CENTER_HORIZONTAL);
+                                    b.setPadding(5, 50, 5, 50);
+                                    b.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
+                                            alertDialog.setTitle("Alert");
+                                            alertDialog.setCancelable(true);
+                                            alertDialog.setMessage("Do you want to Disable  Admin?\n" + name);
+                                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            refdelete = rootnode.getReference("users").child(useruidTemp).child("state");
+                                                            refdelete.setValue("disabled");
+                                                            Toast.makeText(DeleteAdmin.this, "Admin " + name + " Disabled Successfully..", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(DeleteAdmin.this, DeleteAdmin.class);
+                                                            intent.putExtra("uid", uID);
+                                                            dialog.dismiss();
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    });
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+
+                                        }
+                                    });
+                                    surveyListLayout.addView(b);
+                                }
+                                if (state.equals("disabled")) {
+                                    Button b = new Button(getApplicationContext());
+                                    b.setText(name + "  (Disabled)");
+                                    b.setHint(useruidTemp);
+                                    b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
+                                    b.setTextColor(Color.parseColor("#FFFFFF"));
+                                    b.setBackgroundColor(Color.parseColor("#FF871DB6"));
+                                    b.setGravity(Gravity.CENTER_HORIZONTAL);
+                                    b.setPadding(5, 50, 5, 50);
+                                    b.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
+                                            alertDialog.setTitle("Alert");
+                                            alertDialog.setCancelable(true);
+                                            alertDialog.setMessage("Do you want to Enable  Admin?\n" + name);
+                                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            refdelete = rootnode.getReference("users").child(useruidTemp).child("state");
+                                                            refdelete.setValue("enabled");
+                                                            Toast.makeText(DeleteAdmin.this, "Admin " + name + " Enabled Successfully..", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(DeleteAdmin.this, DeleteAdmin.class);
+                                                            intent.putExtra("uid", uID);
+                                                            dialog.dismiss();
+                                                            startActivity(intent);
+                                                            finish();
+
+                                                        }
+                                                    });
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+
+                                        }
+                                    });
+                                    surveyListLayout.addView(b);
+                                }
+                                if (state.equals("main")) {
+                                    Button b = new Button(getApplicationContext());
+                                    b.setText(name + "  (Admin-Main)");
+                                    b.setHint(useruidTemp);
+                                    b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
+                                    b.setTextColor(Color.parseColor("#FFFFFF"));
+                                    b.setBackgroundColor(Color.parseColor("#FF871DB6"));
+                                    b.setGravity(Gravity.CENTER_HORIZONTAL);
+                                    b.setPadding(5, 50, 5, 50);
+                                    b.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
+                                            alertDialog.setTitle("Alert");
+                                            alertDialog.setCancelable(true);
+                                            alertDialog.setMessage("You Can Not Change Main Admin settings\n" + name + " is a Main-Admin");
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+                                        }
+                                    });
+                                    surveyListLayout.addView(b);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(DeleteAdmin.this, "Error Fetching Admin Names..", Toast.LENGTH_SHORT).show();
 
                             }
                         });
-                        surveyListLayout.addView(b);
-                    }
-                    if (state.equals("disabled")) {
-                        Button b = new Button(getApplicationContext());
-                        b.setText(name + "  (Disabled)");
-                        b.setHint(useruidTemp);
-                        b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
-                        b.setTextColor(Color.parseColor("#FFFFFF"));
-                        b.setBackgroundColor(Color.parseColor("#FF871DB6"));
-                        b.setGravity(Gravity.CENTER_HORIZONTAL);
-                        b.setPadding(5, 50, 5, 50);
-                        b.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
-                                alertDialog.setTitle("Alert");
-                                alertDialog.setCancelable(true);
-                                alertDialog.setMessage("Do you want to Enable  Admin?\n" + name);
-                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                refdelete = rootnode.getReference("users-admin").child(useruidTemp).child("state");
-                                                refdelete.setValue("enabled");
-                                                Toast.makeText(DeleteAdmin.this, "Admin " + name + " Enabled Successfully..", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(DeleteAdmin.this, DeleteAdmin.class);
-                                                intent.putExtra("uid", uID);
-                                                dialog.dismiss();
-                                                startActivity(intent);
-                                                finish();
-
-                                            }
-                                        });
-                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                alertDialog.show();
-
-                            }
-                        });
-                        surveyListLayout.addView(b);
-                    }
-                    if (state.equals("main")) {
-                        Button b = new Button(getApplicationContext());
-                        b.setText(name + "  (Admin-Main)");
-                        b.setHint(useruidTemp);
-                        b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
-                        b.setTextColor(Color.parseColor("#FFFFFF"));
-                        b.setBackgroundColor(Color.parseColor("#FF871DB6"));
-                        b.setGravity(Gravity.CENTER_HORIZONTAL);
-                        b.setPadding(5, 50, 5, 50);
-                        b.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                AlertDialog alertDialog = new AlertDialog.Builder(DeleteAdmin.this).create();
-                                alertDialog.setTitle("Alert");
-                                alertDialog.setCancelable(true);
-                                alertDialog.setMessage("You Can Not Change Main Admin settings\n" + name + " is a Main-Admin");
-                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                alertDialog.show();
-                            }
-                        });
-                        surveyListLayout.addView(b);
                     }
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(DeleteAdmin.this, "Error Fetching Admin Names..", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
+            }
+        });
+
     }
 }
