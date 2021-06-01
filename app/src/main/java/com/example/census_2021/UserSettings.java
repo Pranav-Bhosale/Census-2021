@@ -2,6 +2,7 @@ package com.example.census_2021;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +19,21 @@ import com.google.firebase.auth.UserInfo;
 public class UserSettings extends AppCompatActivity {
     String uID;
     String email;
+    CardView resendEmail,changeEmail,signUpadmin,addsurvey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
         uID=getIntent().getStringExtra("uid").toString();
-        Button resendEmail=(Button)findViewById(R.id.resendEmail);
+        resendEmail=(CardView)findViewById(R.id.changepass);
+        changeEmail=(CardView)findViewById(R.id.changeEmail);
+        changeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserSettings.this, ChangeEmail.class);
+                startActivity(intent);
+            }
+        });
         resendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +50,6 @@ public class UserSettings extends AppCompatActivity {
                                     Toast.makeText(UserSettings.this, "Password Reset Email has been sent to your Email", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(UserSettings.this, HomeActivity.class);
                                     intent.putExtra("uid",uID);
-                                    finish();
                                 }
                             }
                         });

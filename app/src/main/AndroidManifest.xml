@@ -9,22 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Census2021">
+        <activity android:name=".ChangeEmail"></activity>
         <activity
             android:name=".AdminToUser"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".UserToAdmin"
+        <activity
+            android:name=".UserToAdmin"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".manageUser"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".manageUser"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".manageAdmin"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".manageAdmin"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".UserSettings"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UserSettings"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DeleteAdmin"
             android:screenOrientation="portrait"

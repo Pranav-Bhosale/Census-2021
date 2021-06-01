@@ -50,11 +50,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         logout =(CardView)findViewById(R.id.logout);
-        addsurvey=(CardView)findViewById(R.id.abledisable);
+        addsurvey=(CardView)findViewById(R.id.changepass);
         signUpBtn= (CardView)findViewById(R.id.adduser);
         signUpadmin=(CardView)findViewById(R.id.addadmin);
-        deleteSurvey=(CardView)findViewById(R.id.changepost);
-        editSurvey=(CardView)findViewById(R.id.editSurvey);
+        deleteSurvey=(CardView)findViewById(R.id.changeEmail);
+        editSurvey=(CardView)findViewById(R.id.editInfo);
         deleteUser=(CardView)findViewById(R.id.deleteuser);
         deleteAdmin=(CardView)findViewById(R.id.deleteadmin);
         settings=(CardView)findViewById(R.id.settings);

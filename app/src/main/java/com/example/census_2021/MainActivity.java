@@ -30,7 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     TextInputLayout email, password;
-    Button btn,forgetPass;
+    Button btn;
+    TextView forgetPass,changeemail;
     ProgressBar bar;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -42,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        forgetPass=(Button)findViewById(R.id.forgot);//newww
+        forgetPass=(TextView)findViewById(R.id.forgot);//newww
+        changeemail=(TextView)findViewById(R.id.changeEmail);//newww
+        changeemail.setVisibility(View.INVISIBLE);
+        changeemail.setClickable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();
         email = (TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
         bar=(ProgressBar) findViewById(R.id.progressBar2);
@@ -66,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        };
 
+        changeemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChangeEmail.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         forgetPass.setOnClickListener(new View.OnClickListener() {//newww
             @Override
             public void onClick(View v) {//newww
@@ -106,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                                                             dialog.dismiss();
                                                                         }
                                                                     });
+                                                            alertDialog.show();
                                                         }
                                                     }
                                                 });
@@ -166,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 String id=mFirebaseUser.getUid();
-                                if(mFirebaseUser.isEmailVerified()) {
                                     rootnode = FirebaseDatabase.getInstance();
                                     reference = rootnode.getReference("users").child(id);
                                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -208,13 +220,31 @@ public class MainActivity extends AppCompatActivity {
                                                 alertDialog.show();
                                             }
                                             else {
-                                                Intent intent = new Intent(MainActivity.this, OtpActivity.class);
-                                                intent.putExtra("mobileNo", mobileNo);
-                                                intent.putExtra("uid", id);
-                                                intent.putExtra("mail", mail);//newww
-                                                intent.putExtra("pass", pass);//newww
-                                                startActivity(intent);
-                                                finish();
+                                                if(mFirebaseUser.isEmailVerified()) {
+                                                    Intent intent = new Intent(MainActivity.this, OtpActivity.class);
+                                                    intent.putExtra("mobileNo", mobileNo);
+                                                    intent.putExtra("uid", id);
+                                                    intent.putExtra("mail", mail);//newww
+                                                    intent.putExtra("pass", pass);//newww
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                                else
+                                                {
+                                                    mFirebaseUser.sendEmailVerification()
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        bar.setVisibility(View.INVISIBLE);
+                                                                        changeemail.setVisibility(View.VISIBLE);
+                                                                        changeemail.setClickable(true);
+                                                                        Toast.makeText(MainActivity.this, "Verify Email to Sign in..", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(MainActivity.this, "Verification Email Sent to registered Email..", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                }
                                             }
                                         }
                                         @Override
@@ -224,21 +254,7 @@ public class MainActivity extends AppCompatActivity {
                                             Toast.makeText(MainActivity.this, "Error in getting mobile no", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                                }
-                                else
-                                {
-                                    mFirebaseUser.sendEmailVerification()
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        bar.setVisibility(View.INVISIBLE);
-                                                        Toast.makeText(MainActivity.this, "Verify Email to Sign in..", Toast.LENGTH_SHORT).show();
-                                                        Toast.makeText(MainActivity.this, "Verification Email Sent to registered Email..", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                }
+
 
                             }
                         }
