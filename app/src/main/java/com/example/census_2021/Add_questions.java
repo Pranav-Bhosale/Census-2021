@@ -31,6 +31,8 @@ public class Add_questions extends AppCompatActivity {
   LinearLayout addOptionRadio,removeOption,addOptionTextBox;
   Button nextQue,submitSurvey;
   Integer i=1;
+  int textcount=0;
+  int textinputid=-1;
   FirebaseAuth mFirebaseAuth;
   FirebaseDatabase rootnode;
   DatabaseReference reference;
@@ -79,6 +81,10 @@ public class Add_questions extends AppCompatActivity {
                     ((ViewGroup) delview.getParent()).removeView(delview);
                     delview = (View) findViewById(i * 1000);
                     ((ViewGroup) delview.getParent()).removeView(delview);
+                    if(i==textinputid)
+                    {
+                        textcount--;
+                    }
                 }
                 else {
                     Toast.makeText(Add_questions.this, " No Options To delete", Toast.LENGTH_SHORT).show();
@@ -89,23 +95,30 @@ public class Add_questions extends AppCompatActivity {
         addOptionTextBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                TextView textView=new TextView(getApplicationContext());
-                textView.setPadding(0,5,0,0);
-                textView.setText("Option"+i);
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18f);
-                textView.setTextColor(Color.parseColor("#FF2E096A"));
-                EditText edittext=new EditText(getApplicationContext());
-                edittext.setText("InputFromUser");
-                edittext.requestFocus();
-                edittext.setFocusable(false);
-                edittext.setEnabled(false);
-                edittext.setClickable(false);
-                edittext.setId(i);
-                textView.setId((i*1000));
-                i++;
-                optionLayout.addView(textView);
-                optionLayout.addView(edittext);
+                if(textcount==0) {
+                    TextView textView = new TextView(getApplicationContext());
+                    textView.setPadding(0, 5, 0, 0);
+                    textView.setText("Option" + i);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+                    textView.setTextColor(Color.parseColor("#FF2E096A"));
+                    EditText edittext = new EditText(getApplicationContext());
+                    edittext.setText("InputFromUser");
+                    edittext.requestFocus();
+                    edittext.setFocusable(false);
+                    edittext.setEnabled(false);
+                    edittext.setClickable(false);
+                    edittext.setId(i);
+                    textinputid=i;
+                    textcount++;
+                    textView.setId((i * 1000));
+                    i++;
+                    optionLayout.addView(textView);
+                    optionLayout.addView(edittext);
+                }
+                else
+                {
+                    Toast.makeText(Add_questions.this, "Only one option with text input can be added ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         submitSurvey.setOnClickListener(new View.OnClickListener() {

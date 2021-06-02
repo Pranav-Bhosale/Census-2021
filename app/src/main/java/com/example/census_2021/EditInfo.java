@@ -129,39 +129,59 @@ public class EditInfo extends AppCompatActivity {
                   tempmob="+91"+tempmob;
                   Boolean isUser = aSwitch.isChecked();
                   if (isUser) {
-                      AlertDialog alertDialog = new AlertDialog.Builder(EditInfo.this).create();
-                      alertDialog.setTitle("Alert");
-                      alertDialog.setCancelable(true);
-                      alertDialog.setMessage("Do you want to Change Account as User/Surveyor?\n");
                       String finalTempmob = tempmob;
-                      alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
-                              new DialogInterface.OnClickListener() {
-                                  public void onClick(DialogInterface dialog, int which) {
-                                      reference.child("mobile_No").setValue(finalTempmob);
-                                      reference.child("name").setValue(tempname);
-                                      reference.child("post").setValue("user");
-                                      AlertDialog alertDialog = new AlertDialog.Builder(EditInfo.this).create();
-                                      alertDialog.setTitle("Alert");
-                                      alertDialog.setCancelable(false);
-                                      alertDialog.setMessage("Changed Account..\n\nLog-in into User/Surveyor Application");
-                                      alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok",
-                                              new DialogInterface.OnClickListener() {
-                                                  public void onClick(DialogInterface dialog, int which) {
-                                                      FirebaseAuth.getInstance().signOut();
-                                                      finishAffinity();
-                                                      System.exit(0);
-                                                  }
-                                              });
-                                      alertDialog.show();
-                                  }
-                              });
-                      alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
-                              new DialogInterface.OnClickListener() {
-                                  public void onClick(DialogInterface dialog, int which) {
-                                      dialog.dismiss();
-                                  }
-                              });
-                      alertDialog.show();
+                      rootnode.getReference("users").child(uID).child("state").addListenerForSingleValueEvent(new ValueEventListener() {
+                          @Override
+                          public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String  state=snapshot.getValue(String.class);
+                            if(state.equals("main"))
+                            {
+                                Toast.makeText(EditInfo.this, "Main Admin can not be user/surveyor", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                AlertDialog alertDialog = new AlertDialog.Builder(EditInfo.this).create();
+                                alertDialog.setTitle("Alert");
+                                alertDialog.setCancelable(true);
+                                alertDialog.setMessage("Do you want to Change Account as User/Surveyor?\n");
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                reference.child("mobile_No").setValue(finalTempmob);
+                                                reference.child("name").setValue(tempname);
+                                                reference.child("post").setValue("user");
+                                                AlertDialog alertDialog = new AlertDialog.Builder(EditInfo.this).create();
+                                                alertDialog.setTitle("Alert");
+                                                alertDialog.setCancelable(false);
+                                                alertDialog.setMessage("Changed Account..\n\nLog-in into User/Surveyor Application");
+                                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok",
+                                                        new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                FirebaseAuth.getInstance().signOut();
+                                                                finishAffinity();
+                                                                System.exit(0);
+                                                            }
+                                                        });
+                                                alertDialog.show();
+                                            }
+                                        });
+                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
+
+                            }
+                          }
+
+                          @Override
+                          public void onCancelled(@NonNull DatabaseError error) {
+                              Toast.makeText(EditInfo.this, "Failed to get admin status ", Toast.LENGTH_SHORT).show();
+                          }
+                      });
+
                   } else
                   {
                       reference.child("mobile_No").setValue(tempmob);
