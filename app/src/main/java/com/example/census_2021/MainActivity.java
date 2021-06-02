@@ -3,14 +3,12 @@ package com.example.census_2021;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         changeemail.setVisibility(View.INVISIBLE);
         changeemail.setClickable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        email = (TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
+        email = (TextInputLayout)findViewById(R.id.editTextTextEmail);
         bar=(ProgressBar) findViewById(R.id.progressBar2);
         password = (TextInputLayout)findViewById(R.id.editTextTextoption);
 //        signin = findViewById(R.id.textView2);

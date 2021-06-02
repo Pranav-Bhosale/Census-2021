@@ -19,7 +19,7 @@ import com.google.firebase.auth.UserInfo;
 public class UserSettings extends AppCompatActivity {
     String uID;
     String email;
-    CardView resendEmail,changeEmail,signUpadmin,addsurvey;
+    CardView resendEmail,changeEmail,userinfo,addsurvey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,14 @@ public class UserSettings extends AppCompatActivity {
         uID=getIntent().getStringExtra("uid").toString();
         resendEmail=(CardView)findViewById(R.id.changepass);
         changeEmail=(CardView)findViewById(R.id.changeEmail);
+        userinfo=(CardView)findViewById(R.id.userinfoDisplay);
+        userinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserSettings.this, MyInfo.class);
+                startActivity(intent);
+            }
+        });
         changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

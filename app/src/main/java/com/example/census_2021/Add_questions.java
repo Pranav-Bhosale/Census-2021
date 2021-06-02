@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -113,7 +112,7 @@ public class Add_questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TextInputLayout questsLayout=(TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
+                TextInputLayout questsLayout=(TextInputLayout)findViewById(R.id.editTextTextEmail);
                 String queSts=questsLayout.getEditText().getText().toString();
                 questsLayout.setError(null);
                 int j=0;
@@ -204,7 +203,7 @@ public class Add_questions extends AppCompatActivity {
         nextQue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputLayout questsLayout=(TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
+                TextInputLayout questsLayout=(TextInputLayout)findViewById(R.id.editTextTextEmail);
                 String queSts=questsLayout.getEditText().getText().toString();
                 questsLayout.setError(null);
                 int j=0;

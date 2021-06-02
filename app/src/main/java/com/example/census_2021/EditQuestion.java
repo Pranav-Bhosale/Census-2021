@@ -28,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EditQuestion extends AppCompatActivity {
     String uid;
@@ -53,7 +52,7 @@ public class EditQuestion extends AppCompatActivity {
         queSts=getIntent().getStringExtra("Question_Statement").toString();
         prevQuesStat=queSts;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        questsLayout=(TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
+        questsLayout=(TextInputLayout)findViewById(R.id.editTextTextEmail);
         questsLayout.getEditText().setText(queSts);
         optionLayout=(LinearLayout)findViewById(R.id.optionlayout);
         addOptionRadio=(LinearLayout)findViewById(R.id.button1);

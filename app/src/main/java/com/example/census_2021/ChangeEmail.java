@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anychart.core.grids.Map;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,7 +30,7 @@ public class ChangeEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_email);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        email = (TextInputLayout)findViewById(R.id.editTextTextQuestionStatement);
+        email = (TextInputLayout)findViewById(R.id.editTextTextEmail);
         bar=(ProgressBar) findViewById(R.id.progressBar2);
         btn = (Button) findViewById(R.id.img2);
         text=(TextView)findViewById(R.id.ghf);
