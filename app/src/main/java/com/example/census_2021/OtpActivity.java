@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,14 +35,19 @@ public class OtpActivity extends AppCompatActivity {
     String optid,  uID,mail,pass;
     private  FirebaseAuth mAuth;
     boolean isSubmit=false;
+    TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
-        otp = (TextInputLayout) findViewById(R.id.otp);
+        otp = (TextInputLayout) findViewById(R.id.otpp);
         signInButton = (Button) findViewById(R.id.addQue);
         resendOtp=(Button) findViewById(R.id.resendotp);
         loginpage=(Button) findViewById(R.id.backtologin);
+        text=(TextView)findViewById(R.id.changeMob);
+        text.setVisibility(View.INVISIBLE);
+        text.setClickable(false);
+        text.setEnabled(false);
         bar = findViewById(R.id.progressBar2);
         userphno = getIntent().getStringExtra("mobileNo").toString();
         uID = getIntent().getStringExtra("uid").toString();
@@ -46,10 +56,27 @@ public class OtpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         initiateotp();
 
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(OtpActivity.this,ChangePhoneNo.class);
+               startActivity(intent);
+            }
+        });
         resendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OtpActivity.this, OtpActivity.class);
+                FirebaseDatabase.getInstance().getReference("users").child(uID).child("mobile_No").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userphno=snapshot.getValue(String.class);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getApplicationContext(), "Error Getting Otp..", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 intent.putExtra("mobileNo",userphno);
                 intent.putExtra("uid",uID);
                 intent.putExtra("mail", mail);  //newww
@@ -126,6 +153,9 @@ public class OtpActivity extends AppCompatActivity {
                                 resendOtp.setClickable(true);
                                 resendOtp.setEnabled(true);
                                 resendOtp.setVisibility(View.VISIBLE);
+                                text.setVisibility(View.VISIBLE);
+                                text.setClickable(true);
+                                text.setEnabled(true);
                                 loginpage.setClickable(true);
                                 loginpage.setEnabled(true);
                                 loginpage.setVisibility(View.VISIBLE);

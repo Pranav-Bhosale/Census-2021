@@ -7,7 +7,6 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,15 +18,24 @@ import com.google.firebase.auth.UserInfo;
 public class UserSettings extends AppCompatActivity {
     String uID;
     String email;
-    CardView resendEmail,changeEmail,userinfo,addsurvey;
+    CardView resendEmail,changeEmail,userinfo,editinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
         uID=getIntent().getStringExtra("uid").toString();
         resendEmail=(CardView)findViewById(R.id.changepass);
-        changeEmail=(CardView)findViewById(R.id.changeEmail);
+        changeEmail=(CardView)findViewById(R.id.changeMob);
         userinfo=(CardView)findViewById(R.id.userinfoDisplay);
+        editinfo=(CardView)findViewById(R.id.editInfo);
+        editinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserSettings.this, EditInfo.class);
+                intent.putExtra("uid","");
+                startActivity(intent);
+            }
+        });
         userinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

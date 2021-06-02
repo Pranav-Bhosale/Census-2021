@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         forgetPass=(TextView)findViewById(R.id.forgot);//newww
-        changeemail=(TextView)findViewById(R.id.changeEmail);//newww
+        changeemail=(TextView)findViewById(R.id.changeMob);//newww
         changeemail.setVisibility(View.INVISIBLE);
         changeemail.setClickable(false);
         mFirebaseAuth = FirebaseAuth.getInstance();

@@ -60,7 +60,6 @@ public class MyInfo extends AppCompatActivity {
               String username=snapshot.getValue(String.class);
                 name.getEditText().setText(username);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(MyInfo.this, "Failed to get Name ", Toast.LENGTH_SHORT).show();
@@ -84,6 +83,10 @@ public class MyInfo extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String userpost=snapshot.getValue(String.class);
+                if(userpost=="user")
+                {
+                    userpost="surveyor";
+                }
                 post.getEditText().setText(userpost);
             }
             @Override

@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         rootnode = FirebaseDatabase.getInstance();
         reference = rootnode.getReference("users").child(uid);
         nameView.setText("UserName");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserHelperClass userdata=snapshot.getValue(UserHelperClass.class);
@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         addsurvey=(CardView)findViewById(R.id.changepass);
         signUpBtn= (CardView)findViewById(R.id.adduser);
         signUpadmin=(CardView)findViewById(R.id.addadmin);
-        deleteSurvey=(CardView)findViewById(R.id.changeEmail);
+        deleteSurvey=(CardView)findViewById(R.id.changeMob);
         editSurvey=(CardView)findViewById(R.id.editInfo);
         deleteUser=(CardView)findViewById(R.id.deleteuser);
         deleteAdmin=(CardView)findViewById(R.id.deleteadmin);
@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
         changeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, EditUserInfo.class);
+                startActivity(intent);
             }
         });
         deleteAdmin.setOnClickListener(new View.OnClickListener() {

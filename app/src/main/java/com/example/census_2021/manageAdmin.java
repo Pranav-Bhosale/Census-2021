@@ -15,7 +15,7 @@ String uID;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_admin);
         uID = getIntent().getStringExtra("uid").toString();
-        changepost =(CardView)findViewById(R.id.changeEmail);
+        changepost =(CardView)findViewById(R.id.changeMob);
         changestate=(CardView)findViewById(R.id.changepass);
 
         changepost.setOnClickListener(new View.OnClickListener() {
