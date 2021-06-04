@@ -9,15 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Census2021">
+        <activity android:name=".aEntry"></activity>
+        <activity android:name=".infoOptions" />
+        <activity android:name=".UserEntries" />
+        <activity android:name=".UserDataEntryOptions" />
+        <activity android:name=".selectUser" />
+        <activity android:name=".selectSurveyforInfo" />
         <activity
             android:name=".ChangePhoneNo"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".EditUserInfo"
+        <activity
+            android:name=".EditUserInfo"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            />
-        <activity android:name=".EditInfo"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditInfo"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
