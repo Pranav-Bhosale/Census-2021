@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     DatabaseReference reference;
     Task<Void> ref1;
     DatabaseReference ref2;
-    CardView logout,signUpBtn,signUpadmin,addsurvey,deleteSurvey,editSurvey,deleteUser,deleteAdmin,settings,changeData;
+    CardView logout,signUpBtn,signUpadmin,addsurvey,deleteSurvey,editSurvey,deleteUser,deleteAdmin,settings,changeData,userQueries;
     String uid;
     TextView nameView;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -59,6 +59,14 @@ public class HomeActivity extends AppCompatActivity {
         deleteAdmin=(CardView)findViewById(R.id.deleteadmin);
         settings=(CardView)findViewById(R.id.settings);
         changeData=(CardView)findViewById(R.id.edituser);
+        userQueries=(CardView)findViewById(R.id.view_query);
+        userQueries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, view_query_section.class);
+                startActivity(intent);
+            }
+        });
         changeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
