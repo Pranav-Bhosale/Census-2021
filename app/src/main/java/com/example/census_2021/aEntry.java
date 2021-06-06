@@ -43,14 +43,12 @@ TextView surveynaame,entryname;
         entryname = (TextView) findViewById(R.id.entrynametext);
         entryname.setText(EntryName);
         mainLayout = (LinearLayout) findViewById(R.id.mainlayout);
-
         reference = FirebaseDatabase.getInstance().getReference("data").child(SurveyName).child(UID).child(EntryName);    //reference to get question
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 CollectQuestions((Map<String, Object>) snapshot.getValue());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(aEntry.this, "Error Fetching Questions..", Toast.LENGTH_SHORT).show();
@@ -72,9 +70,10 @@ TextView surveynaame,entryname;
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String ans = entry.getValue().toString();
                     int i = ans.length();
-                    answer = ans.substring(5,i-1) ;
-                    queans.put(que, answer);
-                    String text=integer.toString()+"."+que+"\n"+ answer;
+//                    answer = ans.substring(5,i-1) ;
+                    queans.put(que, ans);
+                    String text= integer.toString();
+                    text=text+"."+que+"\n"+ ans;
                     editText.setText(text);
                     editText.setTextIsSelectable(false);
                     editText.setClickable(false);

@@ -33,8 +33,9 @@ public class infoOptions extends AppCompatActivity {
         garph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(UserDataEntryOptions.this, .class);
-//                startActivity(intent);
+                Intent intent = new Intent(infoOptions.this, selectQueForGraph.class);
+                intent.putExtra("name",surveyName);
+                startActivity(intent);
             }
         });
         entries.setOnClickListener(new View.OnClickListener() {

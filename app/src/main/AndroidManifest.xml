@@ -4,16 +4,40 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Census2021">
-        <activity android:name=".aEntry"></activity>
-        <activity android:name=".infoOptions" />
-        <activity android:name=".UserEntries" />
-        <activity android:name=".UserDataEntryOptions" />
-        <activity android:name=".selectUser" />
+        <activity android:name=".Graph0"></activity>
+        <activity
+            android:name=".GraphActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".selectQueForGraph"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".aEntry"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".infoOptions"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UserEntries"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UserDataEntryOptions"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".selectUser"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".selectSurveyforInfo" />
         <activity
             android:name=".ChangePhoneNo"
